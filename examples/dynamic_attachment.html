@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+    .overlimit{
+      color: red;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/template" id="template">
+    <hr />
+    <div class="content">
+      <form action="">
+        <textarea class="text"></textarea> <span class="counter"></span> <br /> <button>SUBMIT</button>
+      </form>
+    </div>
+  </script>
+
+  <div id="container">
+    <div class="content">
+      <form action="">
+        <textarea class="text"></textarea>
+        <span class="counter"></span>
+        <br />
+        <button>SUBMIT</button>
+      </form>
+    </div>
+  </div>
+
+  <br />
+  <a href="#" id="add">Add new example content</a>
+</body>
+<script type="text/javascript" src="../vendor/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../jquery.serraCounter.js"></script>
+<script type="text/javascript">
+  $(function () {
+      $('#add').on('click', function (event) {
+          event.preventDefault();
+          $('#container').append($('#template').text());
+      });
+
+      $('#container').on('focus', 'form .text', function () {
+          var $this = $(this),
+              pluginClass = 'serraCountered';
+
+          if (!$this.hasClass(pluginClass)) {
+            $this.serraCounter({
+              message: false,
+              counter: {
+                  scope: 'parent',
+                  selector: '.counter'
+              },
+              ool: function () { // ool is an alias for onoverlimit event
+                  $(this).parents('form').find('button').attr("disabled", "disabled")
+              },
+              ol: function () {  // ol is an alias for onlimit event
+                  $(this).parents('form').find('button').removeAttr("disabled")
+              }
+            });
+
+            $this.addClass(pluginClass);
+
+            console.log('Was serraCountered!');
+          } else {
+            console.log('Nothing!');
+          }
+      });
+  });
+</script>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+    .overlimit{
+      color: red;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+
+  <script type="text/javascript" src="../vendor/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="../jquery.serraCounter.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $('.content.general .text').serraCounter();
+
+      $('.content.parentsFilter .text').serraCounter({
+        message: false,
+        counter: {
+          scope: {parents: 'div:first'},
+          selector: '.counter'
+        }
+      });
+
+      $('.content.parentFilter .text').serraCounter({
+        counter: {
+          scope: 'parent',
+          selector: '.counter'
+        }
+      });
+
+      $('.content.withEventHandlers .text').serraCounter({
+        counter: { selector: '.contador' },
+
+        onoverlimit: function () { // ool is an alias for onoverlimit event
+          $(this).parents('form').find('button').attr("disabled", "disabled")
+        },
+
+        onlimit: function () {  // ol is an alias for onlimit event
+          $(this).parents('form').find('button').removeAttr("disabled")
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id="container">
+    <h3>Define the counter elements in general scope</h3>
+    <div class="content general">
+      <span class="serra-counter"></span>
+
+      <div>
+        <span class="serra-counter"></span>
+
+        <form action="">
+          <textarea class="text"></textarea>
+          <span class="serra-counter"></span>
+          <br />
+          <button onclick="return false;">SUBMIT</button>
+        </form>
+      </div>
+    </div>
+
+    <hr />
+
+    <h3>Define the counter elements filtering the parents nodes</h3>
+    <div class="content parentsFilter">
+      <span class="counter"></span>
+
+      <div>
+        <span class="counter"></span>
+
+        <form action="">
+          <textarea class="text"></textarea>
+          <span class="counter"></span>
+          <br />
+          <button onclick="return false;">SUBMIT</button>
+        </form>
+      </div>
+    </div>
+
+    <hr />
+
+    <h3>Define the counter element filter by the parent node</h3>
+    <div class="content parentFilter">
+      <span class="counter"></span>
+
+      <div>
+        <span class="counter"></span>
+
+        <form action="">
+          <textarea class="text"></textarea>
+          <span class="counter"></span>
+          <br />
+          <button onclick="return false;">SUBMIT</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+    <hr />
+
+    <h3>Use event handlers</h3>
+    <div class="content withEventHandlers">
+      <span class="counter"></span>
+
+      <div>
+        <span class="contador"></span>
+
+        <form action="">
+          <textarea class="text"></textarea>
+          <span class="counter"></span>
+          <br />
+          <button onclick="return false;">SUBMIT</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
