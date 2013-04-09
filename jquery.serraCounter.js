@@ -128,6 +128,7 @@
 
             _counterEvent = Counter.Event(counter, _options);
 
+            $target.focus(_counterEvent);
             $target.keyup(_counterEvent);
             $target.keydown(_counterEvent);
         });
